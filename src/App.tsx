@@ -3,7 +3,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { footballSlice, basketballSlice, tennisSlice } from './store/store';
 import { store, persistor } from './store/store';
 import Layout from './components/Layout/Layout';
-import SportCard from './components/SportCard/SportCard';
+import SportCard from './components/Cards/SportCard';
 
 const App = () => {
   return (
