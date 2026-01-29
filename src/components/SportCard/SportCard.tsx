@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSportValidation } from '../../hooks/useSportValidation';
 import type { SportState, SportType } from '../../types/index';
+import Table from '../Table/Table';
 import styles from './SportCard.module.scss';
 
 interface Props {
@@ -26,7 +27,6 @@ const SportCard: React.FC<Props> = ({ title, type, theme, slice }) => {
     homeScore: 0,
     awayScore: 0,
   });
-  const sortedEntities = [...data.entities].sort((a, b) => b.points - a.points);
 
   const handleAddEntity = () => {
     if (validateEntity(newName)) {
@@ -140,72 +140,7 @@ const SportCard: React.FC<Props> = ({ title, type, theme, slice }) => {
         </div>
       </section>
 
-      <div className={styles.tableContainer}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th className={styles.nameCol}>
-                {type === 'tennis' ? 'Player' : 'Team'}
-              </th>
-
-              {type !== 'basketball' && (
-                <th>{type === 'tennis' ? 'M' : 'P'}</th>
-              )}
-
-              <th>W</th>
-
-              {type === 'basketball' ? (
-                <>
-                  <th>L</th>
-                  <th>D</th>
-                </>
-              ) : (
-                <>
-                  {type !== 'tennis' && <th>D</th>}
-                  <th>L</th>
-                </>
-              )}
-
-              <th>Pts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedEntities.length === 0 ? (
-              <tr>
-                <td colSpan={6} className={styles.empty}>
-                  No data available
-                </td>
-              </tr>
-            ) : (
-              sortedEntities.map((entity) => (
-                <tr key={entity.id}>
-                  <td className={styles.nameCol}>{entity.name}</td>
-
-                  {type !== 'basketball' && <td>{entity.played}</td>}
-
-                  <td>{entity.wins}</td>
-
-                  {type === 'basketball' ? (
-                    <>
-                      <td>{entity.losses}</td>
-                      <td>{entity.draws}</td>
-                    </>
-                  ) : (
-                    <>
-                      {type !== 'tennis' && <td>{entity.draws}</td>}
-                      <td>{entity.losses}</td>
-                    </>
-                  )}
-
-                  <td className={styles.pts}>
-                    <strong>{entity.points}</strong>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      <Table type={type} entities={data.entities} />
     </div>
   );
 };
