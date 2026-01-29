@@ -1,0 +1,48 @@
+.tableContainer.minimal {
+  font-family: 'Roboto';
+
+  .table {
+    width: 100%;
+    border-spacing: 0;
+    padding: 12px 12px 24px 12px;
+
+    thead {
+      background-color: #f3f4f6;
+
+      th {
+        padding: 12px;
+        border-bottom: 1px solid #e5e7eb;
+
+        &:first-child {
+          text-align: left;
+        }
+
+        &:not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
+
+    tbody {
+      td {
+        padding: 12px;
+        font-weight: 500;
+        border-bottom: 1px solid #e5e7eb;
+
+        &:first-child {
+          text-align: left;
+        }
+
+        &:not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .empty {
+    text-align: center;
+    padding: 20px;
+    color: #6b7280;
+  }
+}

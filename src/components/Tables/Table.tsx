@@ -1,10 +1,12 @@
 import React from 'react';
 import type { Entity, SportType } from '../../types/index';
-import styles from './Table.module.scss';
+import styles from './Tables.module.scss';
+import classNames from 'classnames';
 
 interface TableProps {
   type: SportType;
   entities: Entity[];
+  theme: 'minimal' | 'energetic' | 'centric';
 }
 
 const TABLE_HEADERS: Record<
@@ -35,7 +37,7 @@ const TABLE_HEADERS: Record<
   ],
 };
 
-const Table: React.FC<TableProps> = ({ type, entities }) => {
+const Table: React.FC<TableProps> = ({ type, entities, theme }) => {
   const sortedEntities = [...entities].sort((a, b) => b.points - a.points);
 
   const renderEmptyState = () => (
@@ -79,7 +81,7 @@ const Table: React.FC<TableProps> = ({ type, entities }) => {
   };
 
   return (
-    <div className={styles.tableContainer}>
+    <div className={classNames(styles.tableContainer, styles[theme])}>
       <table className={styles.table}>
         <thead>
           <tr>

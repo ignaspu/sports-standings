@@ -1,96 +1,128 @@
 import React, { useState } from 'react';
 import type { Entity, SportType } from '../../types/index';
 import styles from './Forms.module.scss';
+import classnames from 'classnames';
 
 interface MatchFormProps {
   type: SportType;
   entities: Entity[];
+  theme: 'minimal' | 'energetic' | 'centric';
   onSubmit: (match: {
     homeId: string;
     awayId: string;
     homeScore: number;
     awayScore: number;
   }) => void;
+  compact?: boolean;
 }
 
-const MatchForm: React.FC<MatchFormProps> = ({ entities, onSubmit }) => {
+const MatchForm: React.FC<MatchFormProps> = ({
+  entities,
+  onSubmit,
+  theme,
+  compact = false,
+}) => {
   const [match, setMatch] = useState({
     homeId: '',
     awayId: '',
-    homeScore: 0,
-    awayScore: 0,
+    homeScore: '' as number | '',
+    awayScore: '' as number | '',
   });
 
   const handleConfirm = () => {
-    onSubmit(match);
-    setMatch({ homeId: '', awayId: '', homeScore: 0, awayScore: 0 });
+    onSubmit({
+      ...match,
+      homeScore: Number(match.homeScore || 0),
+      awayScore: Number(match.awayScore || 0),
+    });
+
+    setMatch({ homeId: '', awayId: '', homeScore: '', awayScore: '' });
   };
 
-  const isInvalid = !match.homeId || !match.awayId;
+  const isInvalid =
+    !match.homeId || !match.awayId || match.homeId === match.awayId;
 
   return (
-    <section className={styles.section}>
-      <h3>Add Score</h3>
-      <div className={styles.matchInputs}>
-        <div className={styles.selectRow}>
-          <select
-            value={match.homeId}
-            onChange={(e) => setMatch({ ...match, homeId: e.target.value })}
+    <section
+      className={classnames(styles.match, styles[theme], {
+        [styles.compact]: compact,
+      })}
+    >
+      <div className={styles.matchForm}>
+        {!compact && <h3>Add Score</h3>}
+        <div className={styles.matchInputs}>
+          <div className={styles.selectRow}>
+            <select
+              value={match.homeId}
+              onChange={(e) => setMatch({ ...match, homeId: e.target.value })}
+            >
+              <option value="">Home {compact ? '' : 'Team'}</option>
+              {entities.map((e) => (
+                <option
+                  key={e.id}
+                  value={e.id}
+                  disabled={e.id === match.awayId}
+                >
+                  {e.name}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={match.awayId}
+              onChange={(e) => setMatch({ ...match, awayId: e.target.value })}
+            >
+              <option value="">Away {compact ? '' : 'Team'}</option>
+              {entities.map((e) => (
+                <option
+                  key={e.id}
+                  value={e.id}
+                  disabled={e.id === match.homeId}
+                >
+                  {e.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.scoreRow}>
+            <input
+              type="number"
+              placeholder="Home Score"
+              min="0"
+              value={match.homeScore}
+              onChange={(e) =>
+                setMatch({
+                  ...match,
+                  homeScore:
+                    e.target.value === '' ? '' : Number(e.target.value),
+                })
+              }
+            />
+
+            <input
+              type="number"
+              min="0"
+              placeholder="Away Score"
+              value={match.awayScore}
+              onChange={(e) =>
+                setMatch({
+                  ...match,
+                  awayScore:
+                    e.target.value === '' ? '' : Number(e.target.value),
+                })
+              }
+            />
+          </div>
+
+          <button
+            onClick={handleConfirm}
+            className={styles.scoreButton}
+            disabled={isInvalid}
           >
-            <option value="">Select Home</option>
-            {entities.map((e) => (
-              <option key={e.id} value={e.id} disabled={e.id === match.awayId}>
-                {e.name}
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={match.awayId}
-            onChange={(e) => setMatch({ ...match, awayId: e.target.value })}
-          >
-            <option value="">Select Away</option>
-            {entities.map((e) => (
-              <option key={e.id} value={e.id} disabled={e.id === match.homeId}>
-                {e.name}
-              </option>
-            ))}
-          </select>
+            Add Score
+          </button>
         </div>
-
-        <div className={styles.scoreRow}>
-          <input
-            type="number"
-            min="0"
-            value={match.homeScore}
-            onChange={(e) =>
-              setMatch({
-                ...match,
-                homeScore: Math.max(0, Number(e.target.value)),
-              })
-            }
-          />
-          <span className={styles.vs}>VS</span>
-          <input
-            type="number"
-            min="0"
-            value={match.awayScore}
-            onChange={(e) =>
-              setMatch({
-                ...match,
-                awayScore: Math.max(0, Number(e.target.value)),
-              })
-            }
-          />
-        </div>
-
-        <button
-          onClick={handleConfirm}
-          className={styles.scoreButton}
-          disabled={isInvalid}
-        >
-          Confirm Result
-        </button>
       </div>
     </section>
   );
