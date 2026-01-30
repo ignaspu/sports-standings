@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as mixins;
+
 .modalButtons {
   display: flex;
   gap: 12px;
@@ -21,30 +23,15 @@
     }
 
     &.minimal {
-      background-color: #f5f5f5;
-      color: #333;
-
-      &:hover {
-        background-color: #e0e0e0;
-      }
+      @include mixins.button-theme(#f5f5f5, #333, #e0e0e0);
     }
 
     &.energetic {
-      background-color: #ff6b35;
-      color: white;
-
-      &:hover {
-        background-color: #e55a2b;
-      }
+      @include mixins.button-theme(#ff6b35, #ffffff, #e55a2b);
     }
 
     &.centric {
-      background-color: #2ecc71;
-      color: white;
-
-      &:hover {
-        background-color: #27ae60;
-      }
+      @include mixins.button-theme(#2ecc71, #ffffff, #27ae60);
     }
 
     .icon {

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { SportType } from '../types';
+import { getSportConfig } from '../config/sports';
 
 type ModalType = 'entity' | 'match' | null;
 
@@ -45,7 +46,7 @@ export const useSportModal = ({
   const openEntityModal = useCallback(() => openModal('entity'), [openModal]);
   const openMatchModal = useCallback(() => openModal('match'), [openModal]);
 
-  const useModalForms = type === 'basketball' || type === 'tennis';
+  const useModalForms = getSportConfig(type).useModalForms;
 
   return {
     modalState,
