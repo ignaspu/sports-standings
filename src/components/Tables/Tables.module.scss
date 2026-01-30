@@ -46,3 +46,129 @@
     color: #6b7280;
   }
 }
+
+.resultsContainer {
+  color: #FFF;
+}
+
+.matchRow{
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  margin-top: 12px;
+
+  &:not(:last-child) {
+      border-bottom: 2px solid #002620;
+  }
+}
+
+.score {
+  font-weight: 500;
+}
+
+.teams {
+  font-weight: 300;
+}
+
+.tableContainer.energetic {
+  font-family: 'Roboto';
+
+  .table {
+    width: 100%;
+    border-spacing: 0;
+    padding: 12px 0 24px 0;
+    color: #FFFFFF;
+
+    td {
+      border: 1px solid #002E26;
+    }
+
+    thead {
+      background-color: #002E27;
+
+      th {
+        padding: 12px;
+
+        &:first-child {
+          text-align: left;
+          width: 50%;
+        }
+
+        &:not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
+
+    tbody {
+      td {
+        padding: 12px;
+        font-weight: 500;
+        background-color: #00201B;
+
+        &:first-child {
+          text-align: left;
+        }
+
+        &:not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .empty {
+    text-align: center;
+    padding: 20px;
+    color: #FFFFFF;
+  }
+}
+
+.tableContainer.centric {
+  font-family: 'Roboto';
+
+  .table {
+    width: 100%;
+    border-spacing: 0;
+    padding: 12px 12px 24px 12px;
+
+    thead {
+      background-color: #f3f4f6;
+
+      th {
+        padding: 12px;
+        border-bottom: 1px solid #e5e7eb;
+
+        &:first-child {
+          text-align: left;
+        }
+
+        &:not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
+
+    tbody {
+      td {
+        padding: 12px;
+        font-weight: 500;
+        border-bottom: 1px solid #e5e7eb;
+
+        &:first-child {
+          text-align: left;
+        }
+
+        &:not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .empty {
+    text-align: center;
+    padding: 20px;
+    color: #6b7280;
+  }
+}

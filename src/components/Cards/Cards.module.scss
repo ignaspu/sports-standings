@@ -1,5 +1,9 @@
 @use '../../styles/mixins' as mixins;
 
+.card {
+  max-height: 630px;
+}
+
 .minimal {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   @include mixins.card-theme(#37003c, #ffffff, 'Inter', 500);
