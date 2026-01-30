@@ -21,14 +21,14 @@ const ModalButtons: React.FC<ModalButtonsProps> = ({
         className={classnames(styles.button, styles[theme])}
         onClick={onAddEntity}
       >
-        + Add {type === 'tennis' ? 'Player' : 'Team'}
+        <span className={styles.plus}>+</span> Add {type === 'tennis' ? 'Player' : 'Team'}
       </button>
 
       <button
         className={classnames(styles.button, styles[theme])}
         onClick={onAddMatch}
       >
-        + Add Score
+        <span className={styles.plus}>+</span> Add Score
       </button>
     </div>
   );

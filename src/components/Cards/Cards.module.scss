@@ -1,3 +1,7 @@
+.card{
+  max-height: 630px;
+}
+
 .minimal {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   .content {
@@ -22,10 +26,12 @@
 }
 
 .energetic {
+  font-family: 'Roboto';
   .content {
     background-color: #002e26;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+    padding: 12px;
   }
 
   .header {
@@ -41,13 +47,22 @@
       padding: 16px 12px;
     }
   }
+
+  .tableTitle {
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 48px;
+  }
 }
 
 .centric {
+  font-family: 'Space mono';
   .content {
-    background-color: #ffffff;
+    background-color: #FFF;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+    padding: 12px;
   }
 
   .header {
@@ -57,10 +72,17 @@
 
     > h2 {
       color: #ffffff;
-      font-family: 'Space Mono';
-      font-weight: 500;
+      font-family: 'Montserrat';
+      font-weight: 400;
       margin: 0;
       padding: 16px 12px;
     }
+  }
+
+  .tableTitle {
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 48px;
   }
 }
