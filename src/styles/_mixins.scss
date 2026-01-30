@@ -1,5 +1,6 @@
 @mixin card-theme($header-bg, $content-bg, $header-font, $header-weight) {
   .content {
+    padding-inline: 12px;
     background-color: $content-bg;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -20,9 +21,13 @@
   }
 }
 
-@mixin button-theme($bg, $color, $hover-bg) {
+@mixin button-theme($bg, $color, $hover-bg, $padding: 10px 16px, $font-size) {
   background-color: $bg;
   color: $color;
+  padding: $padding;
+  font-size: $font-size;
+  font-weight: 300;
+  font-family: 'Roboto';
 
   &:hover {
     background-color: $hover-bg;

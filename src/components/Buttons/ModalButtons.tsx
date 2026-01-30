@@ -21,7 +21,7 @@ const ModalButtons: React.FC<ModalButtonsProps> = ({
         className={classnames(styles.button, styles[theme])}
         onClick={onAddEntity}
       >
-        + Add {entityLabel}
+        <span className={styles.plus}>+</span> Add {entityLabel}
       </button>
 
       <button

@@ -4,6 +4,8 @@ import styles from './Tables.module.scss';
 import classNames from 'classnames';
 import { useSportCardContext } from '../Cards/SportCardContext';
 import { getSportConfig } from '../../config/sports';
+import { countryOptions } from '../../data/countries';
+import ReactCountryFlag from 'react-country-flag';
 
 interface TableProps {
   entities: Entity[];
@@ -14,6 +16,11 @@ const Table: React.FC<TableProps> = ({ entities }) => {
   const { tableHeaders } = getSportConfig(type);
   const sortedEntities = [...entities].sort((a, b) => b.points - a.points);
 
+  const countryCodeMap = React.useMemo(
+    () => new Map(countryOptions.map(({ country, code }) => [country, code])),
+    []
+  );
+
   const renderEmptyState = () => (
     <tr>
       <td colSpan={tableHeaders.length} className={styles.empty}>
@@ -22,13 +29,33 @@ const Table: React.FC<TableProps> = ({ entities }) => {
     </tr>
   );
 
+  const renderNameCell = (name: string) => {
+    if (type !== 'basketball') return name;
+
+    const code = countryCodeMap.get(name);
+    if (!code) return name;
+
+    return (
+      <span className={styles.label}>
+        <ReactCountryFlag
+          countryCode={code}
+          svg
+          className={styles.flag}
+          title={name}
+          aria-label={name}
+        />
+        <span>{name}</span>
+      </span>
+    );
+  };
+
   const renderEntityRow = (entity: Entity) => {
     return (
       <tr key={entity.id}>
         {tableHeaders.map((header) => {
           const cellContent =
             header.key === 'name' ? (
-              entity.name
+              renderNameCell(entity.name)
             ) : header.key === 'points' ? (
               <strong>{entity[header.key]}</strong>
             ) : (

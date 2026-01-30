@@ -1,6 +1,5 @@
 .minimal.entity {
   font-family: 'Roboto';
-  padding: 12px;
   .entityForm {
     background-color: #f9fafb;
     border-radius: 8px;
@@ -13,11 +12,13 @@
       display: flex;
       gap: 8px;
 
-      > input {
+      > input,
+      select {
         border-radius: 8px;
         width: 100%;
         border: 1px solid #d1d5db;
         padding: 6px;
+        background-color: #ffffff;
 
         &::placeholder {
           color: #9ca3af;
@@ -37,9 +38,8 @@
 }
 
 .minimal.match {
-  padding: 12px;
   font-family: 'Roboto';
-
+  margin-top: 24px;
   .matchForm {
     background-color: #f9fafb;
     border-radius: 8px;

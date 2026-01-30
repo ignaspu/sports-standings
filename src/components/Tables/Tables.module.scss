@@ -4,7 +4,8 @@
   .table {
     width: 100%;
     border-spacing: 0;
-    padding: 12px 12px 24px 12px;
+    padding-bottom: 24px;
+    margin-top: 36px;
 
     thead {
       background-color: #f3f4f6;
@@ -48,17 +49,17 @@
 }
 
 .resultsContainer {
-  color: #FFF;
+  color: #fff;
 }
 
-.matchRow{
+.matchRow {
   display: flex;
   justify-content: space-between;
   padding: 8px;
   margin-top: 12px;
 
   &:not(:last-child) {
-      border-bottom: 2px solid #002620;
+    border-bottom: 2px solid #002620;
   }
 }
 
@@ -77,14 +78,14 @@
     width: 100%;
     border-spacing: 0;
     padding: 12px 0 24px 0;
-    color: #FFFFFF;
+    color: #ffffff;
 
     td {
-      border: 1px solid #002E26;
+      border: 1px solid #002e26;
     }
 
     thead {
-      background-color: #002E27;
+      background-color: #002e27;
 
       th {
         padding: 12px;
@@ -104,7 +105,7 @@
       td {
         padding: 12px;
         font-weight: 500;
-        background-color: #00201B;
+        background-color: #00201b;
 
         &:first-child {
           text-align: left;
@@ -120,7 +121,7 @@
   .empty {
     text-align: center;
     padding: 20px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 

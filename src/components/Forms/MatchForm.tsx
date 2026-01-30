@@ -57,9 +57,7 @@ const MatchForm: React.FC<MatchFormProps> = ({
               value={match.homeId}
               onChange={(e) => setMatch({ ...match, homeId: e.target.value })}
             >
-              <option value="">
-                Home {compact ? '' : entityLabel}
-              </option>
+              <option value="">Home {compact ? '' : entityLabel}</option>
               {entities.map((e) => (
                 <option
                   key={e.id}
@@ -75,9 +73,7 @@ const MatchForm: React.FC<MatchFormProps> = ({
               value={match.awayId}
               onChange={(e) => setMatch({ ...match, awayId: e.target.value })}
             >
-              <option value="">
-                Away {compact ? '' : entityLabel}
-              </option>
+              <option value="">Away {compact ? '' : entityLabel}</option>
               {entities.map((e) => (
                 <option
                   key={e.id}
