@@ -45,7 +45,7 @@ export const SPORT_CONFIG_MAP: Record<SportType, SportConfig> = {
     title: 'EUROBASKET',
     theme: 'energetic',
     entityLabel: 'Team',
-    entityPlaceholder: 'Lithuania...',
+    entityPlaceholder: 'Country...',
     tableHeaders: [
       { label: 'Team', key: 'name' },
       { label: 'W', key: 'wins' },

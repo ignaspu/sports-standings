@@ -50,6 +50,7 @@
 
 .resultsContainer {
   color: #fff;
+  font-family: 'Roboto';
 }
 
 .matchRow {
@@ -69,6 +70,21 @@
 
 .teams {
   font-weight: 300;
+  display: flex;
+
+  .vs {
+    margin: 0 8px;
+  }
+
+  > span {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  > span:first-child {
+    margin-right: 8px;
+  }
 }
 
 .tableContainer.energetic {
@@ -106,6 +122,16 @@
         padding: 12px;
         font-weight: 500;
         background-color: #00201b;
+
+        .label {
+          font-weight: 300;
+        }
+
+        > span {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
 
         &:first-child {
           text-align: left;
