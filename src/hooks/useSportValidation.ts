@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import type { SportState, SportType, Match } from '../types';
+import { getSportConfig } from '../config/sports';
 
 export const useSportValidation = (data: SportState, type: SportType) => {
   const [error, setError] = useState<string | null>(null);
+  const { entityLabel } = getSportConfig(type);
 
   useEffect(() => {
     if (error) {
@@ -21,7 +23,7 @@ export const useSportValidation = (data: SportState, type: SportType) => {
       (e) => e.name.toLowerCase() === trimmed.toLowerCase()
     );
     if (exists) {
-      setError(`${type === 'tennis' ? 'Player' : 'Team'} already exists.`);
+      setError(`${entityLabel} already exists.`);
       return false;
     }
     return true;

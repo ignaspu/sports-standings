@@ -1,22 +1,17 @@
 import React, { useEffect } from 'react';
 import styles from './Modals.module.scss';
 import classnames from 'classnames';
+import { useSportCardContext } from '../Cards/SportCardContext';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   children: React.ReactNode;
-  theme: 'minimal' | 'energetic' | 'centric';
 }
 
-const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-  theme,
-}) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+  const { theme } = useSportCardContext();
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';

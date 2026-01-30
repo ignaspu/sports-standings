@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import type { Entity, SportType } from '../../types/index';
+import type { Entity } from '../../types/index';
 import styles from './Forms.module.scss';
 import classnames from 'classnames';
+import { useSportCardContext } from '../Cards/SportCardContext';
+import { getSportConfig } from '../../config/sports';
 
 interface MatchFormProps {
-  type: SportType;
   entities: Entity[];
-  theme: 'minimal' | 'energetic' | 'centric';
   onSubmit: (match: {
     homeId: string;
     awayId: string;
@@ -19,9 +19,10 @@ interface MatchFormProps {
 const MatchForm: React.FC<MatchFormProps> = ({
   entities,
   onSubmit,
-  theme,
   compact = false,
 }) => {
+  const { type, theme } = useSportCardContext();
+  const { entityLabel } = getSportConfig(type);
   const [match, setMatch] = useState({
     homeId: '',
     awayId: '',
@@ -56,7 +57,9 @@ const MatchForm: React.FC<MatchFormProps> = ({
               value={match.homeId}
               onChange={(e) => setMatch({ ...match, homeId: e.target.value })}
             >
-              <option value="">Home {compact ? '' : 'Team'}</option>
+              <option value="">
+                Home {compact ? '' : entityLabel}
+              </option>
               {entities.map((e) => (
                 <option
                   key={e.id}
@@ -72,7 +75,9 @@ const MatchForm: React.FC<MatchFormProps> = ({
               value={match.awayId}
               onChange={(e) => setMatch({ ...match, awayId: e.target.value })}
             >
-              <option value="">Away {compact ? '' : 'Team'}</option>
+              <option value="">
+                Away {compact ? '' : entityLabel}
+              </option>
               {entities.map((e) => (
                 <option
                   key={e.id}

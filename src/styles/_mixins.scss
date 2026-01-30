@@ -1,0 +1,30 @@
+@mixin card-theme($header-bg, $content-bg, $header-font, $header-weight) {
+  .content {
+    background-color: $content-bg;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .header {
+    background-color: $header-bg;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    > h2 {
+      color: #ffffff;
+      font-family: $header-font;
+      font-weight: $header-weight;
+      margin: 0;
+      padding: 16px 12px;
+    }
+  }
+}
+
+@mixin button-theme($bg, $color, $hover-bg) {
+  background-color: $bg;
+  color: $color;
+
+  &:hover {
+    background-color: $hover-bg;
+  }
+}

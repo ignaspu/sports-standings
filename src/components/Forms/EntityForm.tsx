@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-import type { SportType } from '../../types/index';
 import styles from './Forms.module.scss';
 import classnames from 'classnames';
+import { useSportCardContext } from '../Cards/SportCardContext';
+import { getSportConfig } from '../../config/sports';
 
 interface EntityFormProps {
-  type: SportType;
   onSubmit: (name: string) => void;
-  theme: 'minimal' | 'energetic' | 'centric';
   compact?: boolean;
 }
 
-const EntityForm: React.FC<EntityFormProps> = ({
-  type,
-  onSubmit,
-  theme,
-  compact = false,
-}) => {
+const EntityForm: React.FC<EntityFormProps> = ({ onSubmit, compact = false }) => {
+  const { type, theme } = useSportCardContext();
+  const { entityLabel, entityPlaceholder } = getSportConfig(type);
   const [name, setName] = useState('');
 
   const handleSubmit = () => {
@@ -31,13 +27,6 @@ const EntityForm: React.FC<EntityFormProps> = ({
     }
   };
 
-  const placeholder =
-    type === 'tennis'
-      ? 'Gaubas...'
-      : type === 'football'
-        ? 'Liverpool...'
-        : 'Lithuania...';
-
   return (
     <section
       className={classnames(styles.entity, styles[theme], {
@@ -45,13 +34,13 @@ const EntityForm: React.FC<EntityFormProps> = ({
       })}
     >
       <div className={styles.entityForm}>
-        {!compact && <h3>Add {type === 'tennis' ? 'Player' : 'Team'}</h3>}
+        {!compact && <h3>Add {entityLabel}</h3>}
         <div className={styles.inputGroup}>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder={placeholder}
+            placeholder={entityPlaceholder}
             autoFocus={compact}
           />
           <button
