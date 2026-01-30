@@ -1,8 +1,6 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSportValidation } from '../../hooks/useSportValidation';
 import { useSportModal } from '../../hooks/useSportModal';
-import type { SportType } from '../../types/index';
 import Table from '../Tables/Table';
 import styles from './Cards.module.scss';
 import EntityForm from '../Forms/EntityForm';
@@ -11,15 +9,16 @@ import MatchResults from '../Tables/MatchResults';
 import { useSportData } from '../../hooks/useSportData';
 import ModalButtons from '../Buttons/ModalButtons';
 import SportModal from '../Modals/SportModal';
+import type { SportConfig } from '../../config/sports';
+import { SportCardProvider } from './SportCardContext';
 
 interface Props {
-  title: string;
-  type: SportType;
-  theme: 'minimal' | 'energetic' | 'centric';
-  slice: any;
+  config: SportConfig;
 }
 
-const SportCard: React.FC<Props> = ({ title, type, theme, slice }) => {
+const SportCard: React.FC<Props> = ({ config }) => {
+  const { title, type, theme, slice, showMatchResults, showScoreTableTitle } =
+    config;
   const data = useSportData(type);
   const { error, validateEntity, validateMatch } = useSportValidation(
     data,
@@ -53,54 +52,47 @@ const SportCard: React.FC<Props> = ({ title, type, theme, slice }) => {
   });
 
   return (
-    <div className={`${styles.card} ${styles[theme]}`}>
-      <header className={styles.header}>
-        <h2>{title}</h2>
-      </header>
+    <SportCardProvider value={{ type, theme }}>
+      <div className={`${styles.card} ${styles[theme]}`}>
+        <header className={styles.header}>
+          <h2>{title}</h2>
+        </header>
 
-      <div className={styles.content}>
-        {error && <div className={styles.errorMessage}>{error}</div>}
+        <div className={styles.content}>
+          {error && <div className={styles.errorMessage}>{error}</div>}
 
-        {useModalForms ? (
-          <ModalButtons
-            onAddEntity={openEntityModal}
-            onAddMatch={openMatchModal}
-            theme={theme}
-            type={type}
-          />
-        ) : (
-          <>
-            <EntityForm type={type} theme={theme} onSubmit={onAddEntity} />
-            <MatchForm
-              type={type}
-              entities={data.entities}
-              theme={theme}
-              onSubmit={onAddMatch}
+          {useModalForms ? (
+            <ModalButtons
+              onAddEntity={openEntityModal}
+              onAddMatch={openMatchModal}
             />
-          </>
-        )}
+          ) : (
+            <>
+              <EntityForm onSubmit={onAddEntity} />
+              <MatchForm entities={data.entities} onSubmit={onAddMatch} />
+            </>
+          )}
 
-        {type === 'basketball' && (
-          <MatchResults matches={data.matches} entities={data.entities} />
-        )}
+          {showMatchResults && (
+            <MatchResults matches={data.matches} entities={data.entities} />
+          )}
 
-        {type === 'basketball' && (
-          <h3 className={styles.tableTitle}>Score Table:</h3>
-        )}
+          {showScoreTableTitle && (
+            <h3 className={styles.tableTitle}>Score Table:</h3>
+          )}
 
-        <Table type={type} theme={theme} entities={data.entities} />
+          <Table entities={data.entities} />
+        </div>
+
+        <SportModal
+          isOpen={modalState.isOpen}
+          onClose={closeModal}
+          onSubmit={handleSubmit}
+          modalType={modalState.modalType as 'entity' | 'match'}
+          entities={modalState.modalType === 'match' ? data.entities : []}
+        />
       </div>
-
-      <SportModal
-        isOpen={modalState.isOpen}
-        onClose={closeModal}
-        onSubmit={handleSubmit}
-        theme={theme}
-        type={type}
-        modalType={modalState.modalType as 'entity' | 'match'}
-        entities={modalState.modalType === 'match' ? data.entities : []}
-      />
-    </div>
+    </SportCardProvider>
   );
 };
 

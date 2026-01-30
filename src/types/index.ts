@@ -1,4 +1,5 @@
 export type SportType = 'football' | 'basketball' | 'tennis';
+export type Theme = 'minimal' | 'energetic' | 'centric';
 
 export interface Entity {
   id: string;
