@@ -14,18 +14,23 @@ const ModalButtons: React.FC<ModalButtonsProps> = ({
 }) => {
   const { theme, type } = useSportCardContext();
   const { entityLabel } = getSportConfig(type);
+  const isTennis = type === 'tennis';
 
   return (
     <div className={styles.modalButtons}>
       <button
-        className={classnames(styles.button, styles[theme])}
+        className={classnames(styles.button, styles[theme], {
+          [styles.tennisAddEntity]: isTennis,
+        })}
         onClick={onAddEntity}
       >
         <span className={styles.plus}>+</span> Add {entityLabel}
       </button>
 
       <button
-        className={classnames(styles.button, styles[theme])}
+        className={classnames(styles.button, styles[theme], {
+          [styles.tennisAddScore]: isTennis,
+        })}
         onClick={onAddMatch}
       >
         <span className={styles.plus}>+</span> Add Score

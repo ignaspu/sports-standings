@@ -34,6 +34,14 @@
       margin-top: 14px;
     }
 
+    &.tennisAddEntity {
+      @include mixins.button-theme(#006633, #ffffff, #005528, 8px 12px, 18px);
+    }
+
+    &.tennisAddScore {
+      @include mixins.button-theme(#42075b, #ffffff, #310444, 8px 12px, 18px);
+    }
+
     .icon {
       font-weight: bold;
     }
