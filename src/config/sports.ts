@@ -24,12 +24,18 @@ export type SportConfig = {
   showMatchResults: boolean;
   showScoreTableTitle: boolean;
   slice: Slice;
+  nameMinLength: number;
+  nameMaxLength: number;
+  scoreMin?: number;
+  scoreMax?: number;
 };
 
 export const SPORT_CONFIG_MAP: Record<SportType, SportConfig> = {
   football: {
     type: 'football',
     title: 'Premier League',
+    nameMinLength: 2,
+    nameMaxLength: 24,
     theme: 'minimal',
     entityLabel: 'Team',
     entityPlaceholder: 'Liverpool...',
@@ -45,11 +51,15 @@ export const SPORT_CONFIG_MAP: Record<SportType, SportConfig> = {
     showMatchResults: false,
     showScoreTableTitle: false,
     slice: footballSlice,
+    scoreMin: 0,
+    scoreMax: 20,
   },
   basketball: {
     type: 'basketball',
     title: 'EUROBASKET',
     theme: 'energetic',
+    nameMinLength: 2,
+    nameMaxLength: 24,
     entityLabel: 'Team',
     entityPlaceholder: 'Country...',
     headerIcon: {
@@ -73,10 +83,14 @@ export const SPORT_CONFIG_MAP: Record<SportType, SportConfig> = {
     showMatchResults: true,
     showScoreTableTitle: true,
     slice: basketballSlice,
+    scoreMin: 0,
+    scoreMax: 200,
   },
   tennis: {
     type: 'tennis',
     title: 'Wimbledon',
+    nameMinLength: 2,
+    nameMaxLength: 24,
     theme: 'centric',
     entityLabel: 'Player',
     entityPlaceholder: 'Gaubas...',

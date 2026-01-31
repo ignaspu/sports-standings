@@ -22,13 +22,33 @@ const MatchForm: React.FC<MatchFormProps> = ({
   compact = false,
 }) => {
   const { type, theme } = useSportCardContext();
-  const { entityLabel } = getSportConfig(type);
+  const { entityLabel, scoreMin, scoreMax } = getSportConfig(type);
   const [match, setMatch] = useState({
     homeId: '',
     awayId: '',
     homeScore: '' as number | '',
     awayScore: '' as number | '',
   });
+
+  const hasScoreRange =
+    typeof scoreMin === 'number' && typeof scoreMax === 'number';
+
+  const isScoreInRange = (score: number | '') => {
+    if (!hasScoreRange || score === '') return true;
+    return score >= scoreMin && score <= scoreMax;
+  };
+
+  const handleScoreChange = (field: 'homeScore' | 'awayScore') => {
+    return (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value === '' ? '' : Number(event.target.value);
+      setMatch((prev) => ({ ...prev, [field]: value }));
+    };
+  };
+
+  const showScoreHelper =
+    hasScoreRange &&
+    ((match.homeScore !== '' && !isScoreInRange(match.homeScore)) ||
+      (match.awayScore !== '' && !isScoreInRange(match.awayScore)));
 
   const handleConfirm = () => {
     onSubmit({
@@ -41,7 +61,11 @@ const MatchForm: React.FC<MatchFormProps> = ({
   };
 
   const isInvalid =
-    !match.homeId || !match.awayId || match.homeId === match.awayId;
+    !match.homeId ||
+    !match.awayId ||
+    match.homeId === match.awayId ||
+    !isScoreInRange(match.homeScore) ||
+    !isScoreInRange(match.awayScore);
 
   return (
     <section
@@ -90,29 +114,19 @@ const MatchForm: React.FC<MatchFormProps> = ({
             <input
               type="number"
               placeholder="Home Score"
-              min="0"
+              min={hasScoreRange ? scoreMin : 0}
+              max={hasScoreRange ? scoreMax : undefined}
               value={match.homeScore}
-              onChange={(e) =>
-                setMatch({
-                  ...match,
-                  homeScore:
-                    e.target.value === '' ? '' : Number(e.target.value),
-                })
-              }
+              onChange={handleScoreChange('homeScore')}
             />
 
             <input
               type="number"
-              min="0"
+              min={hasScoreRange ? scoreMin : 0}
+              max={hasScoreRange ? scoreMax : undefined}
               placeholder="Away Score"
               value={match.awayScore}
-              onChange={(e) =>
-                setMatch({
-                  ...match,
-                  awayScore:
-                    e.target.value === '' ? '' : Number(e.target.value),
-                })
-              }
+              onChange={handleScoreChange('awayScore')}
             />
           </div>
 
@@ -124,6 +138,11 @@ const MatchForm: React.FC<MatchFormProps> = ({
             Add Score
           </button>
         </div>
+        {showScoreHelper && (
+          <p className={styles.helper}>
+            Scores must be between {scoreMin} and {scoreMax}.
+          </p>
+        )}
       </div>
     </section>
   );

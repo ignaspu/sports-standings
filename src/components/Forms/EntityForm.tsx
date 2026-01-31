@@ -15,12 +15,20 @@ const EntityForm: React.FC<EntityFormProps> = ({
   compact = false,
 }) => {
   const { type, theme } = useSportCardContext();
-  const { entityLabel, entityPlaceholder } = getSportConfig(type);
+  const { entityLabel, entityPlaceholder, nameMinLength, nameMaxLength } =
+    getSportConfig(type);
   const [name, setName] = useState('');
 
+  const trimmedName = name.trim();
+  const namePattern = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
+  const isNameValid =
+    trimmedName.length >= nameMinLength &&
+    trimmedName.length <= nameMaxLength &&
+    namePattern.test(trimmedName);
+
   const handleSubmit = () => {
-    if (name.trim()) {
-      onSubmit(name.trim());
+    if (isNameValid) {
+      onSubmit(trimmedName);
       setName('');
     }
   };
@@ -55,16 +63,26 @@ const EntityForm: React.FC<EntityFormProps> = ({
               onChange={(e) => setName(e.target.value)}
               placeholder={entityPlaceholder}
               autoFocus={compact}
+              minLength={nameMinLength}
+              maxLength={nameMaxLength}
+              pattern={namePattern.source}
+              title={`${entityLabel} name must be ${nameMinLength}-${nameMaxLength} letters only.`}
             />
           )}
           <button
             onClick={handleSubmit}
             className={styles.addButton}
-            disabled={!name.trim()}
+            disabled={!isNameValid}
           >
             Add
           </button>
         </div>
+        {trimmedName && !isNameValid && (
+          <p className={styles.helper}>
+            {entityLabel} names must be {nameMinLength}-{nameMaxLength} letters
+            only.
+          </p>
+        )}
       </div>
     </section>
   );
