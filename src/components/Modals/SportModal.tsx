@@ -1,8 +1,8 @@
 import Modal from '../Modals/Modal';
 import EntityForm from '../Forms/EntityForm';
 import MatchForm from '../Forms/MatchForm';
-import type { Entity } from '../../types';
-import { useSportCardContext } from '../Cards/SportCardContext';
+import type { Entity, MatchInput } from '../../types';
+import { useSportCardContext } from '../../context/useSportCardContext';
 import { getSportConfig } from '../../config/sports';
 
 type ModalType = 'entity' | 'match';
@@ -10,7 +10,7 @@ type ModalType = 'entity' | 'match';
 interface SportModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: MatchInput | string) => void;
   modalType: ModalType;
   entities?: Entity[];
 }
@@ -31,7 +31,7 @@ const SportModal: React.FC<SportModalProps> = ({
     return 'Add Score';
   };
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: MatchInput | string) => {
     onSubmit(data);
     onClose();
   };

@@ -2,7 +2,7 @@ import React from 'react';
 import type { Entity } from '../../types/index';
 import styles from './Tables.module.scss';
 import classNames from 'classnames';
-import { useSportCardContext } from '../Cards/SportCardContext';
+import { useSportCardContext } from '../../context/useSportCardContext';
 import { getSportConfig } from '../../config/sports';
 import { countryOptions } from '../../data/countries';
 import ReactCountryFlag from 'react-country-flag';

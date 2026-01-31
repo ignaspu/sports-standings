@@ -10,7 +10,8 @@ import { useSportData } from '../../hooks/useSportData';
 import ModalButtons from '../Buttons/ModalButtons';
 import SportModal from '../Modals/SportModal';
 import type { SportConfig } from '../../config/sports';
-import { SportCardProvider } from './SportCardContext';
+import { SportCardProvider } from '../../context/SportCardContext';
+import type { MatchInput } from '../../types';
 
 interface Props {
   config: SportConfig;
@@ -39,7 +40,7 @@ const SportCard: React.FC<Props> = ({ config }) => {
     }
   };
 
-  const onAddMatch = (matchData: any) => {
+  const onAddMatch = (matchData: MatchInput) => {
     if (validateMatch(matchData)) {
       dispatch(slice.actions.addMatch(matchData));
     }

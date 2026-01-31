@@ -1,6 +1,6 @@
 import styles from './Buttons.module.scss';
 import classnames from 'classnames';
-import { useSportCardContext } from '../Cards/SportCardContext';
+import { useSportCardContext } from '../../context/useSportCardContext';
 import { getSportConfig } from '../../config/sports';
 
 interface ModalButtonsProps {

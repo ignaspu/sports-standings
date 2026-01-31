@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { SportType } from '../types';
+import type { MatchInput, SportType } from '../types';
 import { getSportConfig } from '../config/sports';
 
 type ModalType = 'entity' | 'match' | null;
@@ -7,7 +7,7 @@ type ModalType = 'entity' | 'match' | null;
 interface UseSportModalProps {
   type: SportType;
   onAddEntity: (name: string) => void;
-  onAddMatch: (matchData: any) => void;
+  onAddMatch: (matchData: MatchInput) => void;
 }
 
 export const useSportModal = ({
@@ -32,10 +32,10 @@ export const useSportModal = ({
   }, []);
 
   const handleSubmit = useCallback(
-    (data: any) => {
-      if (modalState.modalType === 'entity') {
+    (data: MatchInput | string) => {
+      if (modalState.modalType === 'entity' && typeof data === 'string') {
         onAddEntity(data);
-      } else if (modalState.modalType === 'match') {
+      } else if (modalState.modalType === 'match' && typeof data !== 'string') {
         onAddMatch(data);
       }
       closeModal();

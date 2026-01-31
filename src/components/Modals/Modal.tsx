@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './Modals.module.scss';
 import classnames from 'classnames';
-import { useSportCardContext } from '../Cards/SportCardContext';
+import { useSportCardContext } from '../../context/useSportCardContext';
 
 interface ModalProps {
   isOpen: boolean;

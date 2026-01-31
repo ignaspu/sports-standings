@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Forms.module.scss';
 import classnames from 'classnames';
-import { useSportCardContext } from '../Cards/SportCardContext';
+import { useSportCardContext } from '../../context/useSportCardContext';
 import { getSportConfig } from '../../config/sports';
 import { countryOptions } from '../../data/countries';
 

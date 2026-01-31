@@ -29,3 +29,5 @@ export interface RootState {
   basketball: SportState;
   tennis: SportState;
 }
+
+export type MatchInput = Omit<Match, 'id'>;
