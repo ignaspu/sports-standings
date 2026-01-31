@@ -55,7 +55,7 @@ const MatchResults: React.FC<MatchResultsProps> = ({ matches, entities }) => {
       className={styles.resultsContainer}
       style={{ '--result-max-rows': maxVisibleRows } as React.CSSProperties}
     >
-      {matches.map((match, index) => (
+      {[...matches].reverse().map((match, index) => (
         <div key={index} className={styles.matchRow}>
           <span className={styles.teams}>
             {getEntityLabel(match.homeId)} <span className={styles.vs}>vs</span>{' '}
