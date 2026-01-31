@@ -17,8 +17,15 @@ interface Props {
 }
 
 const SportCard: React.FC<Props> = ({ config }) => {
-  const { title, type, theme, slice, showMatchResults, showScoreTableTitle } =
-    config;
+  const {
+    title,
+    type,
+    theme,
+    slice,
+    showMatchResults,
+    showScoreTableTitle,
+    headerIcon,
+  } = config;
   const data = useSportData(type);
   const { error, validateEntity, validateMatch } = useSportValidation(
     data,
@@ -55,7 +62,29 @@ const SportCard: React.FC<Props> = ({ config }) => {
     <SportCardProvider value={{ type, theme }}>
       <div className={`${styles.card} ${styles[theme]}`}>
         <header className={styles.header}>
-          <h2>{title}</h2>
+          <h2 className={styles.headerTitle}>
+            {headerIcon && (
+              <svg
+                className={styles.headerIcon}
+                viewBox={headerIcon.viewBox}
+                aria-hidden="true"
+                focusable="false"
+              >
+                {headerIcon.paths.map((path: string) => (
+                  <path
+                    key={path}
+                    d={path}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                ))}
+              </svg>
+            )}
+            <span>{title}</span>
+          </h2>
         </header>
 
         <div className={styles.content}>

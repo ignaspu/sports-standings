@@ -1,5 +1,6 @@
 .tableContainer.minimal {
   font-family: 'Roboto';
+  max-width: 100%;
 
   .table {
     width: 100%;
@@ -13,6 +14,11 @@
       th {
         padding: 12px;
         border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        background-color: #f3f4f6;
+
+        top: 0;
+        z-index: 1;
 
         &:first-child {
           text-align: left;
@@ -51,6 +57,11 @@
 .resultsContainer {
   color: #fff;
   font-family: 'Roboto';
+  max-height: calc(
+    var(--result-row-height, 44px) * var(--result-max-rows, 4) + 12px
+  );
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
 .matchRow {
@@ -89,6 +100,7 @@
 
 .tableContainer.energetic {
   font-family: 'Roboto';
+  max-width: 100%;
 
   .table {
     width: 100%;
@@ -101,10 +113,12 @@
     }
 
     thead {
-      background-color: #002e27;
-
       th {
         padding: 12px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #002e27;
 
         &:first-child {
           text-align: left;
@@ -153,18 +167,21 @@
 
 .tableContainer.centric {
   font-family: 'Roboto';
+  max-width: 100%;
 
   .table {
     width: 100%;
     border-spacing: 0;
-    padding: 12px 12px 24px 12px;
+    padding-bottom: 24px;
 
     thead {
-      background-color: #f3f4f6;
-
       th {
         padding: 12px;
         border-bottom: 1px solid #e5e7eb;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #ffffff;
 
         &:first-child {
           text-align: left;
@@ -198,4 +215,29 @@
     padding: 20px;
     color: #6b7280;
   }
+}
+
+.tableScroll {
+  max-height: calc(
+    var(--table-row-height, 48px) * var(--table-max-rows, 4) +
+      var(--table-header-height, 48px)
+  );
+  overflow: auto;
+  width: 100%;
+}
+
+.statWithIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.winIcon {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.lossIcon {
+  color: #dc2626;
+  font-weight: 700;
 }

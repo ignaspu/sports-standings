@@ -19,6 +19,7 @@ interface MatchResultsProps {
 
 const MatchResults: React.FC<MatchResultsProps> = ({ matches, entities }) => {
   const { type } = useSportCardContext();
+  const maxVisibleRows = type === 'basketball' ? 2 : 4;
 
   const countryCodeMap = new Map(
     countryOptions.map((option) => [option.country, option.code])
@@ -50,7 +51,10 @@ const MatchResults: React.FC<MatchResultsProps> = ({ matches, entities }) => {
   if (!matches || matches.length === 0) return null;
 
   return (
-    <div className={styles.resultsContainer}>
+    <div
+      className={styles.resultsContainer}
+      style={{ '--result-max-rows': maxVisibleRows } as React.CSSProperties}
+    >
       {matches.map((match, index) => (
         <div key={index} className={styles.matchRow}>
           <span className={styles.teams}>

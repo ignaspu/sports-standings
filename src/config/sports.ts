@@ -7,9 +7,15 @@ type TableHeader = {
   key: keyof Entity | 'name';
 };
 
+type HeaderIcon = {
+  viewBox: string;
+  paths: string[];
+};
+
 export type SportConfig = {
   type: SportType;
   title: string;
+  headerIcon?: HeaderIcon;
   theme: Theme;
   entityLabel: string;
   entityPlaceholder: string;
@@ -46,6 +52,16 @@ export const SPORT_CONFIG_MAP: Record<SportType, SportConfig> = {
     theme: 'energetic',
     entityLabel: 'Team',
     entityPlaceholder: 'Country...',
+    headerIcon: {
+      viewBox: '0 0 24 24',
+      paths: [
+        'M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20z',
+        'M12 2v20',
+        'M2 12h20',
+        'M4.9 4.9c4.6 4.6 4.6 9.6 0 14.2',
+        'M19.1 4.9c-4.6 4.6-4.6 9.6 0 14.2',
+      ],
+    },
     tableHeaders: [
       { label: 'Team', key: 'name' },
       { label: 'W', key: 'wins' },
@@ -64,6 +80,14 @@ export const SPORT_CONFIG_MAP: Record<SportType, SportConfig> = {
     theme: 'centric',
     entityLabel: 'Player',
     entityPlaceholder: 'Gaubas...',
+    headerIcon: {
+      viewBox: '0 0 24 24',
+      paths: [
+        'M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20z',
+        'M7 4c4 4 4 12 0 16',
+        'M17 4c-4 4-4 12 0 16',
+      ],
+    },
     tableHeaders: [
       { label: 'Player', key: 'name' },
       { label: 'M', key: 'played' },
