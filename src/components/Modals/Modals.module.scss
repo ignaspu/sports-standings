@@ -87,6 +87,7 @@
 
   input {
     box-sizing: border-box;
+    margin-top: 8px;
   }
 
   input,
@@ -98,7 +99,6 @@
     font-size: 14px;
     transition: all 0.2s;
     background: white;
-    margin-top: 8px;
 
     &:focus {
       outline: none;
